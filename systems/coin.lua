@@ -24,15 +24,15 @@ function GetClaimCost(entity)
 			
 				elseif belttype == "express-transport-belt" then
 				cost = settings.global['express-belt-cost'].value 
-				return {cost = cost, can_afford = CanTransferCredits(entity, cost)}	
-			
-			else
-						
+				return {cost = cost, can_afford = CanTransferCredits(entity, cost)}			
+			else	
+
 			cost = settings.global['belt-cost'].value 
 		
 		return {cost = cost, can_afford = CanTransferCredits(entity, cost)}				
 		end				
 	end
+    
     return {cost = false}	
 end
 
