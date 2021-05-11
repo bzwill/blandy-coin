@@ -1,0 +1,11 @@
+{
+    "name": "blandy-coin",
+    "version": "0.0.1",
+    "factorio_version": "1.1",
+    "title": "Blandy Coin",
+    "author": "Blair & Andy",
+    "contact": "",
+    "homepage": "",
+    "source": "",
+    "dependencies": ["base", "stdlib"]
+}
