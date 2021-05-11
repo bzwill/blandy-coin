@@ -157,6 +157,7 @@ script.on_event({defines.events.on_built_entity, defines.events.on_robot_built_e
         HandleEntityBuild(event)
     end
 end)
+
 script.on_event({defines.events.on_entity_died, defines.events.on_player_mined_entity}, HandleEntityDied)
 script.on_event(defines.events.on_player_created, PlayerCreated)
 script.on_event(defines.events.on_force_created, ForceCreated)
