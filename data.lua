@@ -105,11 +105,8 @@ coinFarm.crafting_categories = {"sciencecoin"},
       icon = "__base__/graphics/icons/coin.png",
       icon_size = 32,
       subgroup = "fluid-recipes",
-	  
-      
-    }
-
-	},
+	        
+    },
   	{
       type = "recipe",
       name = "WhiteScienceCoin",
