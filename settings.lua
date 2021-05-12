@@ -24,7 +24,7 @@ data:extend({
         default_value = 1.0
     },
 	
-	    {
+ {
         type = "double-setting",
         name = "fast-belt-cost",
         setting_type = "runtime-global",
@@ -46,7 +46,14 @@ data:extend({
         type = "double-setting",
         name = "coin-farm-speed",
         setting_type = "runtime-global",
-        default_value = 0.0025
+        default_value = 1.0
+    },
+	
+	{
+        type = "double-setting",
+        name = "science-coin-value",
+        setting_type = "runtime-global",
+        default_value = 100
     },
     {
         type = "string-setting",
