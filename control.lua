@@ -7,6 +7,7 @@
 require "systems/coin"
 
 
+
 PAID_ENTITY_TYPES =
 {
     "electric-pole",    
@@ -18,6 +19,9 @@ PAID_ENTITY_TYPES =
 function Init()
     global.credits = global.credits or {}
     global.coin_farms = global.coin_farms or {}	
+	global.creditsfromenergy = global.creditsfromenergy or {}
+	global.creditsfromscience = global.creditsfromscience or {}	
+	
 	for _, force in pairs(game.forces) do
         ForceCreated({force=force})
     end
@@ -32,9 +36,17 @@ function PlayerCreated(event)
 end
 
 function ForceCreated(event)
-    local force = event.force
+    local force = event.force	
     if global.credits[force.name] == nil then
         global.credits[force.name] = settings.global['starting-credits'].value
+    end
+	
+	if global.creditsfromenergy[force.name] == nil then
+        global.creditsfromenergy[force.name] = 0
+    end
+	
+	if global.creditsfromscience[force.name] == nil then
+        global.creditsfromscience[force.name] = 0
     end
 end
 
@@ -51,6 +63,12 @@ function AddCreditsGUI(player)
 
     if not player.gui.top['credits'] then
         player.gui.top.add{type = "label", name = "credits", caption = {"blandy-coin.gui.credits"}, style = "caption_label"}
+    end
+	if not player.gui.top['creditsfromenergy'] then
+        player.gui.top.add{type = "label", name = "creditsfromenergy", caption = {"blandy-coin.gui.creditsfromenergy"}, style = "caption_label"}
+    end
+	if not player.gui.top['creditsfromscience'] then
+        player.gui.top.add{type = "label", name = "creditsfromscience", caption = {"blandy-coin.gui.creditsfromscience"}, style = "caption_label"}
     end
 end
 
@@ -108,9 +126,19 @@ function HandleEntityBuild(event)
 end
 
 function OnTick(event)
+	if global.creditsfromenergy == nil then
+		Init()
+	end	
+		
 
     for _, player in pairs(game.connected_players) do
         player.gui.top['credits'].caption = {"", {"blandy-coin.gui.credits"}, {"colon"}, math.floor(global.credits[player.force.name], "c")}
+	end
+	for _, player in pairs(game.connected_players) do
+         player.gui.top['creditsfromenergy'].caption = {"", {"blandy-coin.gui.creditsfromenergy"}, {"colon"}, math.floor(global.creditsfromenergy[player.force.name], "c")}
+    end
+	for _, player in pairs(game.connected_players) do
+        player.gui.top['creditsfromscience'].caption = {"", {"blandy-coin.gui.creditsfromscience"}, {"colon"}, math.floor(global.creditsfromscience[player.force.name], "c")}
     end
 
     for i=#global.coin_farms, 1, -1 do
@@ -124,10 +152,12 @@ function OnTick(event)
     --extra production when using science	
     for i, coin_farm in pairs(global.coin_farms) do
 		local progress = coin_farm.entity.crafting_progress
-        game.print(coin_farm.entity.name)
+		local force = coin_farm.entity.force
+        --game.print(coin_farm.entity.name)
 	    if progress >= 1 then
 		    local sciencevalue = settings.global['science-coin-value'].value
-		    game.print("Added " .. sciencevalue .. " credits from science mining")
+			--force.item_production_statistics.on_flow("Coin from Science", amount)
+			global.creditsfromscience[coin_farm.entity.force.name] = global.creditsfromscience[coin_farm.entity.force.name] + sciencevalue
 		    AddCredits(coin_farm.entity.force, sciencevalue)
 		end		
     end
@@ -150,16 +180,19 @@ script.on_nth_tick(60, function(event)
     --base production of coins from power
 
     for i, coin_farm in pairs(global.coin_farms) do
+		local force = coin_farm.entity.force
 		local basecoinrate = settings.global['coin-farm-speed'].value
 		local energy = coin_farm.entity.energy / coin_farm.entity.electric_buffer_size
 		local coinrate = energy * basecoinrate
-		--game.print("added " .. coinrate .. " credit(s) from energy mining")
+		--force.item_production_statistics.on_flow("Coin from Energy", amount)
+		global.creditsfromenergy[coin_farm.entity.force.name] = global.creditsfromenergy[coin_farm.entity.force.name] + coinrate
 		AddCredits(coin_farm.entity.force,coinrate)		
 	end
 
 end)		
 
 script.on_init(Init)
+script.on_load(OnLoad)
 script.on_configuration_changed(ModConfigurationChanged)
 script.on_event(defines.events.on_tick, OnTick)
 script.on_event({defines.events.on_built_entity, defines.events.on_robot_built_entity}, function(event)

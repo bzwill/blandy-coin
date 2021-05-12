@@ -58,7 +58,7 @@ data:extend({
     {
         type = "string-setting",
         name = "credit-mint-energy-usage",
-        setting_type = "runtime-global",
-        default_value = "1000kW"
+        setting_type = "startup",
+        default_value = "500kW"
     },
 })

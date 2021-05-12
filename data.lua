@@ -3,7 +3,7 @@ local coinFarm = util.table.deepcopy(data.raw.furnace['electric-furnace'])
 coinFarm.name = "coin-farm"
 coinFarm.minable = {mining_time = 0.1, result = "coin-farm"}
 coinFarm.energy_usage = "0.1kW"
-coinFarm.energy_source.drain ="500kW"
+coinFarm.energy_source.drain = settings.startup["credit-mint-energy-usage"].value
 coinFarm.crafting_categories = {"sciencecoin"},
 
 data:extend({
