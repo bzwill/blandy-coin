@@ -18,10 +18,10 @@ data:extend({
     category = "sciencecoin",
     enabled = true,
     hidden = false,
-    energy_required = 1,
+    energy_required = 70,
     ingredients =
     {
-      {"automation-science-pack", 1} --2.5 credits per bottle at default 100 price
+      {"automation-science-pack", 1} 
     },
     results = { },
     icon = "__base__/graphics/icons/coin.png",
@@ -34,10 +34,10 @@ data:extend({
     category = "sciencecoin",
     enabled = true,
     hidden = false,
-    energy_required = 1,
+    energy_required = 60,
     ingredients =
     {
-      {"logistic-science-pack", 1} --5 credits per bottle at default 100 price 
+      {"logistic-science-pack", 1} --
     },
     results = { },
     icon = "__base__/graphics/icons/coin.png",
@@ -50,10 +50,10 @@ data:extend({
     category = "sciencecoin",
     enabled = true,
     hidden = false,
-    energy_required = 1,
+    energy_required = 50,
     ingredients =
     {
-      {"military-science-pack", 1} --10 credits per bottle at default 100 price
+      {"military-science-pack", 1} --
     },
     results = { },
     icon = "__base__/graphics/icons/coin.png",
@@ -66,10 +66,10 @@ data:extend({
     category = "sciencecoin",
     enabled = true,
     hidden = false,
-    energy_required = 1,
+    energy_required = 40,
     ingredients =
     {
-      {"chemical-science-pack", 1} --20 credits per bottle at default 100 price
+      {"chemical-science-pack", 1} --
     },
     results = { },
     icon = "__base__/graphics/icons/coin.png",
@@ -82,10 +82,10 @@ data:extend({
     category = "sciencecoin",
     enabled = true,
     hidden = false,
-    energy_required = 1,
+    energy_required = 30,
     ingredients =
     {
-      {"utility-science-pack", 1} --50 credits per bottle at default 100 price
+      {"utility-science-pack", 1} --
     },
     results = { },
     icon = "__base__/graphics/icons/coin.png",
@@ -94,36 +94,36 @@ data:extend({
   },
   {
     type = "recipe",
-    name = "WhiteScienceCoin",
-    category = "sciencecoin",
-    enabled = true,
-    hidden = false,
-    energy_required = 1,
-    ingredients =
-    {
-      {"space-science-pack", 1} --100 credits per bottle at default 100 price
-    },
-    results = { },
-    icon = "__base__/graphics/icons/coin.png",
-    icon_size = 32,
-    subgroup = "fluid-recipes",	 
-  },
-  {
-    type = "recipe",
     name = "PurpleScienceCoin",
     category = "sciencecoin",
     enabled = true,
     hidden = false,
-    energy_required = 1,
+    energy_required = 20,
     ingredients =
     {
-      {"production-science-pack", 3} --333 credits per bottle at default 100 price
+      {"production-science-pack", 1} 
     },
     results = { },
     icon = "__base__/graphics/icons/coin.png",
     icon_size = 32,
     subgroup = "fluid-recipes",      
   },
+  {
+    type = "recipe",
+    name = "WhiteScienceCoin",
+    category = "sciencecoin",
+    enabled = true,
+    hidden = false,
+    energy_required = 10,
+    ingredients =
+    {
+      {"space-science-pack", 1} --
+    },
+    results = { },
+    icon = "__base__/graphics/icons/coin.png",
+    icon_size = 32,
+    subgroup = "fluid-recipes",	 
+  },  
 })
 
 data:extend{   

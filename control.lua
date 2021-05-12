@@ -109,7 +109,6 @@ end
 
 function OnTick(event)
 
-    
     for _, player in pairs(game.connected_players) do
         player.gui.top['credits'].caption = {"", {"blandy-coin.gui.credits"}, {"colon"}, math.floor(global.credits[player.force.name], "c")}
     end
@@ -122,20 +121,16 @@ function OnTick(event)
 
     local farmingspeed = settings.global['coin-farm-speed'].value
     
+    --extra production when using science	
     for i, coin_farm in pairs(global.coin_farms) do
-	
-		
-		
-	--extra production when using science	
-		
 		local progress = coin_farm.entity.crafting_progress
+        game.print(coin_farm.entity.name)
 	    if progress >= 1 then
-		local sciencevalue = settings.global['science-coin-value'].value
-		game.print("added " .. sciencevalue .. " credit(s) from science mining")
-		AddCredits(coin_farm.entity.force, sciencevalue) 			
+		    local sciencevalue = settings.global['science-coin-value'].value
+		    game.print("Added " .. sciencevalue .. " credits from science mining")
+		    AddCredits(coin_farm.entity.force, sciencevalue)
 		end		
     end
-
 end
 
 function CanTransferCredits(control, amount)
@@ -152,16 +147,16 @@ function AddCredits(force, amount)
 end
 
 script.on_nth_tick(60, function(event)
- --base production of coins from power
+    --base production of coins from power
 
- for i, coin_farm in pairs(global.coin_farms) do
+    for i, coin_farm in pairs(global.coin_farms) do
 		local basecoinrate = settings.global['coin-farm-speed'].value
 		local energy = coin_farm.entity.energy / coin_farm.entity.electric_buffer_size
 		local coinrate = energy * basecoinrate
 		--game.print("added " .. coinrate .. " credit(s) from energy mining")
-		AddCredits(coin_farm.entity.force,coinrate)
-		
+		AddCredits(coin_farm.entity.force,coinrate)		
 	end
+
 end)		
 
 script.on_init(Init)
