@@ -62,7 +62,7 @@ coinFarm.crafting_categories = {"sciencecoin"},
       hidden = false,
       energy_required = 1,
       ingredients =
-      
+      {
         {"military-science-pack", 10} --10 credits per bottle at default 100 price
       },
       results = { },
@@ -87,10 +87,9 @@ coinFarm.crafting_categories = {"sciencecoin"},
       icon = "__base__/graphics/icons/coin.png",
       icon_size = 32,
       subgroup = "fluid-recipes",
-	  
-      
+	      
     },
-	  	{
+	{
       type = "recipe",
       name = "YellowScienceCoin",
       category = "sciencecoin",
@@ -121,11 +120,8 @@ coinFarm.crafting_categories = {"sciencecoin"},
       results = { },
       icon = "__base__/graphics/icons/coin.png",
       icon_size = 32,
-      subgroup = "fluid-recipes",
-	  
-      
-    }
-
+		subgroup = "fluid-recipes",
+	 
 	},
   	{
       type = "recipe",
@@ -144,8 +140,7 @@ coinFarm.crafting_categories = {"sciencecoin"},
       subgroup = "fluid-recipes",
 	  
       
-    }
-
+    },
   })
 
 
