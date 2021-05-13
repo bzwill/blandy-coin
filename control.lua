@@ -118,8 +118,6 @@ function Area(position, radius)
 end
 
 function HandleEntityBuild(event)	
-    
-    AddNewGUI(GetEventPlayer(event))
     local player = GetEventPlayer(event)
     local entity = event.created_entity
 
