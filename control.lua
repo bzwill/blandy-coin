@@ -39,14 +39,12 @@ function Init()
     for player_index, player in pairs(game.players) do
         PlayerCreated({player_index=player_index})
     end    
-
-    player.gui.screen['blandycoin_main_frame'].destroy()
 end
 
 function PlayerCreated(event)
     local player = GetEventPlayer(event)
     AddCreditsGUI(player)
-end
+end 
 
 function ForceCreated(event)
     local force = event.force	
@@ -61,6 +59,11 @@ function ForceCreated(event)
 	if global.creditsfromscience[force.name] == nil then
         global.creditsfromscience[force.name] = 0
     end
+
+    for _, player in pairs(game.connected_players) do
+        AddNewGUI(player)
+	end
+
 end
 
 function ModConfigurationChanged(event)
@@ -80,8 +83,6 @@ function AddCreditsGUI(player)
 	if not player.gui.top['creditsfromscience'] then
         player.gui.top.add{type = "label", name = "creditsfromscience", caption = {"blandy-coin.gui.creditsfromscience"}, style = "caption_label"}
     end
-
-    AddNewGUI(player)
 end
 
 
@@ -144,8 +145,16 @@ function HandleEntityBuild(event)
     end
 end
 
+function PlayerConnected(event)
+    for _, player in pairs(game.connected_players) do
+        AddNewGUI(player)
+	end
+end
+
 function OnTick(event)
 
+    
+    
     for _, player in pairs(game.connected_players) do
         player.gui.top['credits'].caption = {"", {"blandy-coin.gui.credits"}, {"colon"}, math.floor(global.credits[player.force.name], "c")}
 	end
@@ -220,12 +229,26 @@ script.on_event({defines.events.on_entity_died, defines.events.on_player_mined_e
 script.on_event(defines.events.on_player_created, PlayerCreated)
 script.on_event(defines.events.on_force_created, ForceCreated)
 
+script.on_event(defines.events.on_player_joined_game, PlayerConnected)
+
 remote.add_interface("blandy-coin", {
-    ["add-credits"] = function(force, amount)
+    ["GetCredits"] = function(force)
+        return GetCredits(force)
+    end,
+    ["HasEnoughCredits"] = function(entity, amount)
+        return HasEnoughCredits(force, amount)
+    end,
+    ["ForceNameHasEnoughCredits"] = function(force_amount, amount)
+        return ForceNameHasEnoughCredits(force, amount)
+    end,
+    ["AddCredits"] = function(force, amount)
         AddCredits(force, amount)
     end,
-    ["get-credits"] = function(force)
-        return GetCredits(force)
+    ["RemoveCredits"] = function(force, amount)
+        return RemoveCredits(force, amount)
+    end,
+    ["TransferCredits"] = function(give_force, receive_force, amount)
+        return TransferCredits(give_force, receive_force, amount)   
     end
 })
 

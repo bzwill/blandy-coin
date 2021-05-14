@@ -59,6 +59,7 @@ function UpdateGUI()
             for _, force in pairs(game.forces) do
                 
                 screen_element['blandycoin_main_frame']['creditdata'].caption = "Total Credits: " .. GetCredits(player.force) .. "c"
+
                 screen_element['blandycoin_main_frame']['credit-energy-income'].caption = "Energy income: " .. math.floor(global.creditsfromenergy[player.force.name]) .. "c"
                 screen_element['blandycoin_main_frame']['credit-science-income'].caption = "Science income: " .. math.floor(global.creditsfromscience[player.force.name]) .. "c"
                                 
@@ -66,8 +67,10 @@ function UpdateGUI()
 
                 for _, force in pairs(game.forces) do
                     if force.name ~= nil and not Contains(INVALID_FORCES, force.name) then                         
-                        local forceCredits = force.name .. 'c'                                                
-                        teamTable[forceCredits].caption = GetCredits(force)                        
+                        local forceCredits = force.name .. 'c'        
+                        if teamTable[forceCredits] ~= nil then    
+                            teamTable[forceCredits].caption = GetCredits(force)
+                        end
                     end
                 end        
             end                 

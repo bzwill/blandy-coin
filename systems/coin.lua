@@ -3,12 +3,12 @@ function GetClaimCost(entity)
     if entity.type == "electric-pole" then
 		local supply_area = entity.prototype.supply_area_distance
         local cost = supply_area * supply_area * settings.global['cost-per-tile-for-energy'].value
-        return {cost = cost, can_afford = CanTransferCredits(entity, cost)}
+        return {cost = cost, can_afford = HasEnoughCredits(entity, cost)}
 
     elseif entity.type == "straight-rail" or entity.type == "curved-rail" then
 	    game.print(entity.type)
         local cost = settings.global['rail-cost'].value		
-        return {cost = cost, can_afford = CanTransferCredits(entity, cost)}  
+        return {cost = cost, can_afford = HasEnoughCredits(entity, cost)}  
 
     elseif entity.type == "transport-belt" then         
         local cost = settings.global['fast-belt-cost'].value	
@@ -16,20 +16,20 @@ function GetClaimCost(entity)
 
 		if belttype == "transport-belt" then
 			cost = settings.global['belt-cost'].value
-			return {cost = cost, can_afford = CanTransferCredits(entity, cost)}			
+			return {cost = cost, can_afford = HasEnoughCredits(entity, cost)}			
 			
 				elseif belttype == "fast-transport-belt" then
 				cost = settings.global['fast-belt-cost'].value
-				return {cost = cost, can_afford = CanTransferCredits(entity, cost)}	
+				return {cost = cost, can_afford = HasEnoughCredits(entity, cost)}	
 			
 				elseif belttype == "express-transport-belt" then
 				cost = settings.global['express-belt-cost'].value 
-				return {cost = cost, can_afford = CanTransferCredits(entity, cost)}			
+				return {cost = cost, can_afford = HasEnoughCredits(entity, cost)}			
 			else	
 
 			cost = settings.global['belt-cost'].value 
 		
-		return {cost = cost, can_afford = CanTransferCredits(entity, cost)}				
+		return {cost = cost, can_afford = HasEnoughCredits(entity, cost)}				
 		end				
 	end
     
